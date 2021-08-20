@@ -19,13 +19,20 @@ class ReviewController extends ApiController
         $this->validator = $validator;
         $this->entity = $repository->getEntity();
         $this->type = $repository->getReviewTypeFromRequest($request);
-
+        if (config('review.auth_middleware.admin.middleware') !== '') {
+            $this->middleware(
+                config('review.auth_middleware.admin.middleware'),
+                ['except' => config('review.auth_middleware.admin.except')]
+            );
+        }
+        else {
+            throw new Exception("Admin middleware configuration is required");
+        }
         if (isset(config('review.transformers')['review'])) {
             $this->transformer = config('review.transformers.review');
         } else {
             $this->transformer = ReviewTransformer::class;
         }
-
     }
 
     public function index(Request $request)

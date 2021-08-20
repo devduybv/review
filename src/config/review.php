@@ -9,4 +9,10 @@ return [
     'transformers' => [
         'review' => VCComponent\Laravel\Review\Transformers\ReviewTransformer::class,
     ],
+    'auth_middleware' => [
+        'admin'    => [
+            'middleware' => '',
+            'except'     => [],
+        ]
+    ]
 ];
