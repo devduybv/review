@@ -2,6 +2,7 @@
 
 namespace VCComponent\Laravel\Review\Http\Controllers\Api\Admin;
 
+use Exception;
 use Illuminate\Http\Request;
 use VCComponent\Laravel\Review\Repositories\ReviewInterface;
 use VCComponent\Laravel\Review\Transformers\ReviewTransformer;
@@ -24,8 +25,7 @@ class ReviewController extends ApiController
                 config('review.auth_middleware.admin.middleware'),
                 ['except' => config('review.auth_middleware.admin.except')]
             );
-        }
-        else {
+        } else {
             throw new Exception("Admin middleware configuration is required");
         }
         if (isset(config('review.transformers')['review'])) {

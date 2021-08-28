@@ -16,7 +16,13 @@ class ReviewReponsitory extends BaseRepository implements ReviewInterface
      */
     public function model()
     {
-        return Review::class;
+
+        if (isset(config('review.models')['review'])) {
+            return config('review.models.review');
+        } else {
+            return Review::class;
+        }
+
     }
 
     public function getEntity()
